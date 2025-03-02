@@ -9,10 +9,6 @@ const HomeScreen = () => {
   const { trendingContent } = useGetTrendingContent();
   const category = "trending movies";
 
-  // trendingContent
-  //   ? console.log("got trendingContent@@@@")
-  //   : console.log("didnt get!!!");
-
   // To have a shimmering TV animation until we get trendingContent from Youtube API
   if (!trendingContent) {
     return (
@@ -29,7 +25,10 @@ const HomeScreen = () => {
         <div className="relative h-screen text-white">
           <Navbar />
           <img
-            src={trendingContent?.snippet.thumbnails.maxres.url}
+            src={
+              trendingContent?.snippet.thumbnails?.maxres?.url ||
+              trendingContent?.snippet.thumbnails?.standard?.url
+            }
             alt="hero img"
             className="absolute top-0 left-0 w-full h-full object-cover -z-50"
           />

@@ -1,13 +1,7 @@
 import express from "express";
-import { getSearchHistory } from "./search.route.js";
-import { removeItemFromSearchHistory } from "./search.route.js";
-import { searchMovie } from "./search.route.js";
-
-export {
-  searchMovie,
-  getSearchHistory,
-  removeItemFromSearchHistory,
-} from "../controllers/search.controller.js";
+import { getSearchHistory } from "../controllers/search.controller.js";
+import { removeItemFromSearchHistory } from "../controllers/search.controller.js";
+import { searchMovie } from "../controllers/search.controller.js";
 
 const router = express.Router();
 

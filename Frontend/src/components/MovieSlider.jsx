@@ -29,9 +29,16 @@ const MovieSlider = (props) => {
               className="min-w-[250px] relative group"
               key={item.id}
             >
+              {console.log(
+                item.snippet.thumbnails?.maxres?.url ||
+                  item.snippet.thumbnails?.standard?.url
+              )}
               <div className="rounded-lg overflow-hidden">
                 <img
-                  src={item.snippet.thumbnails.maxres.url}
+                  src={
+                    item.snippet.thumbnails?.maxres?.url ||
+                    item.snippet.thumbnails?.standard?.url
+                  }
                   alt="video img"
                   className="transition-transform duration-300 ease-in-out group-hover:scale-125"
                 />

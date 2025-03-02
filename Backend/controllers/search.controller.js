@@ -14,27 +14,32 @@ export async function searchMovie(req, res) {
     }
 
     // if there are null elements in search_history then we need to remove them before adding another search query:
-    const searchHistoryCheckForNullFromDB = await db.query("SELECT search_history FROM my_schema.search_history WHERE username=$1;", [userDetails["username"]]);
+    const searchHistoryCheckForNullFromDB = await db.query(
+      "SELECT search_history FROM my_schema.search_history WHERE username=$1;",
+      [userDetails["username"]]
+    );
 
-    const searchHistoryCheckForNull = searchHistoryCheckForNullFromDB.rows[0].search_history;
-  
-    const searchHistoryElementsWithoutNull = searchHistoryCheckForNull.filter((elem)=>elem===elem);
+    let searchHistoryCheckForNull = [];
 
-    const nullElementsFromSearchHistory = searchHistoryCheckForNull.filter((elem)=>elem===null);
+    if (searchHistoryCheckForNullFromDB.rows.length > 0) {
+      searchHistoryCheckForNull =
+        searchHistoryCheckForNullFromDB.rows[0].search_history || [];
+    }
 
-    if(nullElementsFromSearchHistory.length > 0){
+    // Remove null elements from search history
+    const searchHistoryElementsWithoutNull = searchHistoryCheckForNull.filter(
+      (elem) => elem !== null
+    );
+
+    // If there were null elements, update the database
+    if (
+      searchHistoryCheckForNull.length !==
+      searchHistoryElementsWithoutNull.length
+    ) {
       await db.query(
-        "UPDATE my_schema.search_history SET search_history=ARRAY [$1::jsonb] WHERE username=$2;",
-        [
-          JSON.stringify(searchHistoryElementsWithoutNull[0]),
-          userDetails["username"],
-        ]
+        "UPDATE my_schema.search_history SET search_history=$1 WHERE username=$2;",
+        [searchHistoryElementsWithoutNull, userDetails["username"]]
       );
-
-      for (let iter = 1; iter < searchHistoryElementsWithoutNull.length; iter++) {
-        await db.query("UPDATE my_schema.search_history SET search_history=ARRAY [$1::jsonb] WHERE username=$2;",
-          [JSON.stringify(searchHistoryElementsWithoutNull[iter]), userDetails["username"]])
-      }
     }
 
     // Note: For now I'm just adding the searched query to the search history.
@@ -91,13 +96,18 @@ export async function removeItemFromSearchHistory(req, res) {
     // first part:
     const userHistoryAfterDeletingPart1 = userHistory.slice(0, parseInt(id));
     // second part:
-    const userHistoryAfterDeletingPart2 = userHistory.slice(parseInt(id)+1, userHistory.length);
-    const userHistoryAfterDeleting = userHistoryAfterDeletingPart1.concat(userHistoryAfterDeletingPart2);
+    const userHistoryAfterDeletingPart2 = userHistory.slice(
+      parseInt(id) + 1,
+      userHistory.length
+    );
+    const userHistoryAfterDeleting = userHistoryAfterDeletingPart1.concat(
+      userHistoryAfterDeletingPart2
+    );
 
     // removing null values from the array as it stops frontend from functioning
     const userHistoryAfterDeletingWithoutNullValues =
       userHistoryAfterDeleting.filter((element) => (element = element));
-      
+
     // update the first element after removing the history using id normally (since it overwrites)
     await db.query(
       "UPDATE my_schema.search_history SET search_history=ARRAY [$1::jsonb] WHERE username=$2;",
