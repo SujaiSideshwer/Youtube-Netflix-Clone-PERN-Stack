@@ -1,14 +1,80 @@
-# YouTube-Netflix Clone (PERN Stack)
+# YouTube & Netflix Clone - PERN Stack
 
-This project is a full-stack **YouTube-like web app with a Netflix UI** built using the **PERN stack** (PostgreSQL, Express.js, React.js, and Node.js). The application provides a streaming platform where users can browse, upload, and watch video content, mimicking core features of popular streaming services.
+Welcome to the **YouTube & Netflix Clone** project! This repository contains a full-stack web application built using the **PERN (PostgreSQL, Express, React, Node.js)** stack. The project aims to replicate core functionalities of popular streaming platforms like YouTube and Netflix, providing a seamless user experience for browsing, watching, and managing videos.
+
+---
+
+## Table of Contents
+
+1. [Project Overview](#project-overview)
+2. [Features](#features)
+3. [Technologies Used](#technologies-used)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [API Endpoints](#api-endpoints)
+7. [Folder Structure](#folder-structure)
+8. [Contributing](#contributing)
+9. [License](#license)
+
+---
+
+## Project Overview
+
+This project is a **full-stack web application** that mimics the core functionalities of YouTube and Netflix. It allows users to:
+
+- Browse and search for videos.
+- Watch videos with a custom video player.
+- Create and manage user accounts.
+- Like, comment, and interact with videos.
+- Responsive design for both desktop and mobile devices.
+
+The backend is built with **Node.js** and **Express**, using **PostgreSQL** as the database. The frontend is developed with **React**, providing a dynamic and interactive user interface.
+
+---
 
 ## Features
 
-- User Authentication (JWT-based login & registration)
-- Video Streaming
-- Categories and Recommendations
-- Watch History Tracking
-- Responsive Design
+### YouTube Clone Features
+
+- **Video Upload**: Users can upload videos with titles, descriptions, and thumbnails.
+- **Video Playback**: Custom video player for streaming uploaded videos.
+- **Search Functionality**: Search for videos by title, description, or tags.
+- **User Interaction**: Like, dislike, and comment on videos.
+- **User Profiles**: View and edit user profiles.
+
+### Netflix Clone Features
+
+- **Content Categorization**: Videos are categorized into genres (e.g., Action, Comedy, Drama).
+- **Trending Section**: Displays trending videos based on views and likes.
+- **Watchlist**: Users can save videos to their watchlist for later viewing.
+- **Responsive Design**: Optimized for both desktop and mobile devices.
+
+---
+
+## Technologies Used
+
+### Frontend
+
+- **React**: JavaScript library for building the user interface.
+- **React Router**: For handling client-side routing.
+- **Axios**: For making HTTP requests to the backend.
+- **CSS**: Custom styling for a clean and modern design.
+
+### Backend
+
+- **Node.js**: JavaScript runtime for server-side development.
+- **Express**: Web framework for building RESTful APIs.
+- **PostgreSQL**: Relational database for storing data.
+- **Sequelize**: ORM for managing database operations.
+- **JWT (JSON Web Tokens)**: For user authentication and authorization.
+
+### Other Tools
+
+- **Git**: Version control system.
+- **Postman**: For testing API endpoints.
+- **Heroku/Netlify**: For deployment (optional).
+
+---
 
 ## User Authentication Page
 
@@ -66,6 +132,58 @@ This project is a full-stack **YouTube-like web app with a Netflix UI** built us
 
 -Finally you can logout by clicking the arrow icon at the last
 
+---
+
+## Installation
+
+Follow these steps to set up the project locally:
+
+1. **Clone the Repository**:
+   git clone https://github.com/SujaiSideshwer/Youtube-Netflix-Clone-PERN-Stack.git
+   cd Youtube-Netflix-Clone-PERN-Stack
+   git checkout clean-branch
+
+2. **Install Dependencies**:
+   Navigate to the client and server folders and install dependencies for both:
+   cd server
+   npm install
+   cd ../client
+   npm install
+
+3. **Set Up the Database**:
+   Create a PostgreSQL database and update the config.js file in the server folder with your database credentials.
+   Run migrations to set up the database schema:
+   cd server
+   npx sequelize-cli db:migrate
+   Start the Application:
+
+4. **Start the backend server**:
+   cd server
+   npm start
+
+5. **Start the frontend development server**:
+   cd client
+   npm start
+
+6. **Access the Application**:
+   Open your browser and navigate to http://localhost:3000.
+
+---
+
+## Usage
+
+**Home Page**: Browse videos and categories.
+
+**Search**: Use the search bar to find specific videos.
+
+**User Authentication**: Sign up or log in to access additional features like liking, commenting, and saving videos.
+
+**Video Playback**: Click on any video to start playback.
+
+**Profile Page**: View and edit your profile information.
+
+---
+
 ## Tech Stack
 
 - **Frontend**: React.js, Axios, Context API
@@ -104,7 +222,7 @@ This project is a full-stack **YouTube-like web app with a Netflix UI** built us
 └─ README.md
 ```
 
-## Installation
+---
 
 ### Prerequisites
 
